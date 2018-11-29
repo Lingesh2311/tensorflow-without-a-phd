@@ -41,16 +41,19 @@ tf.set_random_seed(0)
 mnist = mnistdata.read_data_sets("data", one_hot=True, reshape=False)
 
 # input X: 28x28 grayscale images, the first dimension (None) will index the images in the mini-batch
+# None becomes 100 later, which is the number of images in the training batch under consideration
+# Incase we want to use colour images that's when 3 goes in the place of 1
 X = tf.placeholder(tf.float32, [None, 28, 28, 1])
 # correct answers will go here
 Y_ = tf.placeholder(tf.float32, [None, 10])
 # weights W[784, 10]   784=28*28
-W = tf.Variable(tf.zeros([784, 10]))
+W = tf.Variable(tf.zeros([784, 10])) # This can be updated later since it's from the tf.variable class
 # biases b[10]
 b = tf.Variable(tf.zeros([10]))
 
 # flatten the images into a single line of pixels
 # -1 in the shape definition means "the only possible dimension that will preserve the number of elements"
+# -1 thus ends up being the number of images in the mini batch
 XX = tf.reshape(X, [-1, 784])
 
 # The model
